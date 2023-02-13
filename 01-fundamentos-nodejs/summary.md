@@ -53,6 +53,13 @@ import http from 'node:http'
 - PATCH   => Atualizar uma informação específica de um recurso no back-end
 - DELETE  => Deletar um recurso no back-end
 
+### Status code
+Mensagens que são repassadas na requisição ou resposta para indicar qual foi o resultado da operação.
+
+ex.: `200 - OK` `404 - Not Found` `500 - Internal Server Error`
+
+Tabelas no Google, só pesquisar
+
 ### Metadados
 
 Os cabeçalhos dos requests/responses HTTP carregam informações importantes em vários sentidos.
@@ -66,3 +73,11 @@ Uma aplicação `stateful` guarda os dados na memória do servidor durante a exe
 É uma abordagem incomum quando se fala de desenvolvimento web, porque se a aplicação desliga, a memória é resetada e os dados armazenados não persistem.
 
 É uma ferramenta quando se trata de certos fluxos de execução dentro do site, mas quando alguma parte do processo depende de dados, é superior usar a abordadem `stateless`.
+
+### Streams
+
+Aplicação principal - Leitura/recepção de arquivos por partes.
+
+Serviços de Streaming como Netflix e Spotify não mandam o filme/podcast inteiro ao usuário, mas sim por partes, o que facilita para o aparelho do cliente e para o servidor na gestão dos seus recursos.
+
+Outro exemplo, que é mais possível de acontecer - Arquivos CSV gigantes (1Gb+) que devem ser persistidos no banco de dados, mas o usuário que faz upload tem a Internet com capacidade de upload de 10mb/s apenas. Então, a medida que formos recebendo os dados, por que não inserir já no database? A outra alternativa é esperar todo o tempo para os dados chegarem e inserir no banco tudo de uma vez, o que é claramente mais intenso computacionalmente.
