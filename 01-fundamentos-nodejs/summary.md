@@ -52,3 +52,17 @@ import http from 'node:http'
 - PUT     => Atualizar um recurso no back-end
 - PATCH   => Atualizar uma informação específica de um recurso no back-end
 - DELETE  => Deletar um recurso no back-end
+
+### Metadados
+
+Os cabeçalhos dos requests/responses HTTP carregam informações importantes em vários sentidos.
+
+Uma informação crucial é o formato como os dados são enviados/retornados nas requisições, comunicando ao cliente/servidor como deve proceder para lidar com eles.
+
+### Aplicação Stateful
+
+Uma aplicação `stateful` guarda os dados na memória do servidor durante a execução do mesmo.
+
+É uma abordagem incomum quando se fala de desenvolvimento web, porque se a aplicação desliga, a memória é resetada e os dados armazenados não persistem.
+
+É uma ferramenta quando se trata de certos fluxos de execução dentro do site, mas quando alguma parte do processo depende de dados, é superior usar a abordadem `stateless`.
