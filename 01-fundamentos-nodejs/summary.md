@@ -44,3 +44,11 @@ Usar o prefixo `node:` na importação comunica para o NodeJS que o pacote sendo
 ```js
 import http from 'node:http'
 ```
+
+### Métodos HTTP principais (REST API)
+
+- GET     => Buscar um recurso do back-end
+- POST    => Criar um recurso no back-end
+- PUT     => Atualizar um recurso no back-end
+- PATCH   => Atualizar uma informação específica de um recurso no back-end
+- DELETE  => Deletar um recurso no back-end
