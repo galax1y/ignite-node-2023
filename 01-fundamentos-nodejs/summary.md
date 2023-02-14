@@ -93,3 +93,19 @@ Em requisições HTTP, `req` e `res` são Streams
 **Duplex streams** can be used to perform both **`read and write`** operations. A typical example of a duplex stream is a socket, which can be used for two-way communication, such as in a real-time chat app.
 
 **Transform streams** are duplex streams that **`perform transformations on the data`** being processed. Operations such as compression and extraction use transform streams.
+
+### Buffers
+
+O Buffer é uma representação de um espaço na memória do computador para transitar dados rapidamente, e depois, limpar a memória, tudo de maneira performática.
+
+```js
+const buf = Buffer.from("hello")
+```
+
+Cada entrada no Buffer é um hex <=> bin convertido de acordo com a tabela ASCII para o respectivo caractere.
+
+### Middleware
+
+Pode ser interpretado como um interceptador das requisições, tratando-as para se adequar aos proximos passos da aplicação.
+
+Um middleware
