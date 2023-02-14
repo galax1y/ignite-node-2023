@@ -81,3 +81,15 @@ Aplicação principal - Leitura/recepção de arquivos por partes.
 Serviços de Streaming como Netflix e Spotify não mandam o filme/podcast inteiro ao usuário, mas sim por partes, o que facilita para o aparelho do cliente e para o servidor na gestão dos seus recursos.
 
 Outro exemplo, que é mais possível de acontecer - Arquivos CSV gigantes (1Gb+) que devem ser persistidos no banco de dados, mas o usuário que faz upload tem a Internet com capacidade de upload de 10mb/s apenas. Então, a medida que formos recebendo os dados, por que não inserir já no database? A outra alternativa é esperar todo o tempo para os dados chegarem e inserir no banco tudo de uma vez, o que é claramente mais intenso computacionalmente.
+
+A questão é que no NodeJS, várias interações são codadas com base em Streams, e além disso, é um modelo que encaixa na realidade, já que na Internet e nos computadores de forma geral, o upload/download/leitura de arquivos não acontece instantaneamente, e quando for necessário o arquivo completo (JSON, por exemplo), basta esperar com uma estrutura `async - await`.
+
+Em requisições HTTP, `req` e `res` são Streams
+
+**Readable streams** are used in operations where data is read, such as **`reading data from a file or streaming video`**.
+
+**Writable streams** are used in operations where data is written, such as **`writing or updating data`** to a file.
+
+**Duplex streams** can be used to perform both **`read and write`** operations. A typical example of a duplex stream is a socket, which can be used for two-way communication, such as in a real-time chat app.
+
+**Transform streams** are duplex streams that **`perform transformations on the data`** being processed. Operations such as compression and extraction use transform streams.
