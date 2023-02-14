@@ -108,4 +108,4 @@ Cada entrada no Buffer é um hex <=> bin convertido de acordo com a tabela ASCII
 
 Pode ser interpretado como um interceptador das requisições, tratando-as para se adequar aos proximos passos da aplicação.
 
-Um middleware
+Um exemplo de middleware comum nas requisições HTTP, por exemplo, é a conversão dos dados no corpo da requisição para JSON ou String.
