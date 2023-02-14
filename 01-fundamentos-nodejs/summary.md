@@ -109,3 +109,37 @@ Cada entrada no Buffer é um hex <=> bin convertido de acordo com a tabela ASCII
 Pode ser interpretado como um interceptador das requisições, tratando-as para se adequar aos proximos passos da aplicação.
 
 Um exemplo de middleware comum nas requisições HTTP, por exemplo, é a conversão dos dados no corpo da requisição para JSON ou String.
+
+### File System
+
+No arquivo `database.js`
+```js
+import fs from 'node:fs/promises'
+class Database {
+
+  // Ler dados do arquivo db.json
+  constructor() {
+    // fs.readFile('path', encoding)
+    fs.readFile(databasePath, 'utf-8')
+    .then(data => {
+      this.#database = JSON.parse(data)
+    })
+    // Se o arquivo não existir, criar um db.json com um objeto vazio
+    .catch(() => {
+      this.#persist()
+    })
+  }
+
+  #persist() {
+    // fs.writeFile('path', data)
+    fs.writeFile('db.json', JSON.stringify(this.#database))
+  }
+
+  insert(table, data) {
+    ...
+    // Persistir novos dados inseridos no banco de dados
+    #persist()
+  }
+}
+```
+
