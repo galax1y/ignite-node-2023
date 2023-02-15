@@ -12,6 +12,7 @@
 
 import {randomUUID} from 'crypto'
 import {Database} from './database.js'
+import {buildRoutePath} from './utils/build-route-path.js'
 
 const database = new Database()
 
@@ -19,55 +20,61 @@ export const routes = [
 	// - Criação de uma task
 	{
 		method: 'POST',
-		path: '/tasks',
+		path: buildRoutePath('/tasks'),
 		handler: (req, res) => {
+			console.log('Handling route POST')
 			const {title, description} = req.body
 
-			database.insert('tasks', {
-				id: randomUUID(),
-				title,
-				description,
-				completed_at: null,
-				created_at: new Date(),
-				updated_at: null,
-			})
+			database.insert('tasks', {title, description})
 
-			return res.writeHead(201).end()
+			res.writeHead(201).end()
 		},
 	},
 	// - Listagem de todas as tasks
 	{
 		method: 'GET',
-		path: '/tasks',
+		path: buildRoutePath('/tasks'),
 		handler: (req, res) => {
 			console.log('Handling route GET')
 			const tasks = database.select('tasks')
 
-			return res.writeHead(200).end(JSON.stringify(tasks))
+			res.writeHead(200).end(JSON.stringify(tasks))
 		},
 	},
 
 	// - Atualização de uma task pelo `id`
 	{
 		method: 'PUT',
-		path: '/tasks',
-		handler: (req, res) => {},
+		path: buildRoutePath('/tasks/:id'),
+		handler: (req, res) => {
+			console.log('Handling route PUT')
+			const {id} = req.params
+			const {title, description} = req.body
+
+			database.update('tasks', {id, title, description})
+
+			res.writeHead(204).end()
+		},
 	},
 	// - Remover uma task pelo `id`
 	{
 		method: 'DELETE',
-		path: '/tasks',
-		handler: (req, res) => {},
+		path: buildRoutePath('/tasks/:id'),
+		handler: (req, res) => {
+			console.log('Handling route DELETE')
+			const {id} = req.params
+
+			database.delete('tasks', id)
+
+			res.writeHead(204).end()
+		},
 	},
 	// - Marcar pelo `id` uma task como completa
 	{
 		method: 'PATCH',
-		path: '/tasks',
-		handler: (req, res) => {},
-	},
-	{
-		method: 'GET',
-		path: '/tasks',
-		handler: (req, res) => {},
+		path: buildRoutePath('/tasks/:id/complete'),
+		handler: (req, res) => {
+			console.log('Handling route PATCH')
+		},
 	},
 ]
