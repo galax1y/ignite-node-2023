@@ -61,6 +61,7 @@ export class Database {
         name: name,
         email: email
       })
+      this.#persist()
     }
   }
 }
