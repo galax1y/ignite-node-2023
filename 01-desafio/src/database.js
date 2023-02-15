@@ -68,4 +68,14 @@ export class Database {
 		}
 		this.#persist()
 	}
+
+	complete(table, id) {
+		const entry = this.#database[table].find((task) => task.id === id)
+
+		if (entry) {
+			entry.completed_at = new Date()
+		}
+
+		this.#persist()
+	}
 }

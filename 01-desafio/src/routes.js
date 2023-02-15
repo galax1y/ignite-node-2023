@@ -75,6 +75,10 @@ export const routes = [
 		path: buildRoutePath('/tasks/:id/complete'),
 		handler: (req, res) => {
 			console.log('Handling route PATCH')
+			const {id} = req.params
+			database.complete('tasks', id)
+
+			return res.writeHead(204).end()
 		},
 	},
 ]
