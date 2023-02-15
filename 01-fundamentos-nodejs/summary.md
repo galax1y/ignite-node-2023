@@ -143,3 +143,23 @@ class Database {
 }
 ```
 
+### Parâmetros de requisições HTTP
+
+#### Query parameters
+
+São recebidos concatenados na URL
+`http://example.com` + **`?idParameter=1&nameParameter=Lucas`**
+
+Normalmente não recebem informações sensíveis para usar como filtro ou paginação.
+Os parâmetros podem ser múltiplos e podem ter nome. Recebendo vários parâmetros com mesmo nome e valores diferentes podemos criar até arrays.
+
+#### Route parameters
+
+Também são recebidos na URL mas com uma estrutura diferente
+`http://example.com` + `/users/1`
+
+Normalmente não recebem informações sensíveis e são usados para identificação de recursos
+
+#### Request Body
+
+É recebido no corpo da requisição, onde passa pelo protocolo HTTPS (mais segurança) e é por onde deve passar a maior parte dos dados sensíveis ou não.
