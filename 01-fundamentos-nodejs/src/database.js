@@ -48,6 +48,19 @@ export class Database {
       this.#database[table].splice(rowIndex, 1)
       this.#persist()
     }
-    
+  }
+
+  update(table, data) {
+    const { id, name, email } = data
+
+    const rowIndex= this.#database[table].findIndex(entry => entry.id === id)
+
+    if (rowIndex > -1) {
+      this.#database[table].splice(rowIndex, 1, {
+        id: id,
+        name: name,
+        email: email
+      })
+    }
   }
 }
