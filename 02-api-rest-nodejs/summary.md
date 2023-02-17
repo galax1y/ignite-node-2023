@@ -88,3 +88,28 @@ app
     console.log('HTTP Server running on port 3333')
   })
 ```
+
+### Validando request na rota do Fastify c/ zod e Typescript
+
+```ts
+  // rota fastify
+  app.post('/hello', async (request) => {
+    const createRequestBodySchema = z.object({
+      title: z.string(),
+      amount: z.number(),
+      type: z.enum(['credit', 'debit']),
+    })
+
+    const { title, amount, type } = createRequestBodySchema.parse(request.body)
+    ...
+  })
+```
+
+### Retornando status code e outras informações no Fastify
+
+```ts
+...
+app.post('/', async (request, reply) => {
+  reply.status(<status_code>).send(<payload>)
+})
+```
