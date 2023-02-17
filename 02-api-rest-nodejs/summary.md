@@ -113,3 +113,53 @@ app.post('/', async (request, reply) => {
   reply.status(<status_code>).send(<payload>)
 })
 ```
+
+### Hook global (para um contexto)
+
+Em um plugin, podemos passar um hook global servindo como middleware pra todos as rotas dentro dele:
+
+```ts
+  app.addHook('preHandler', globalFunction)
+```
+
+# Testes automatizados 
+
+**TEMA IMPORTANTE**
+
+Testes automatizados aumentam a confiança para manter o código a longo prazo.
+
+#### Teste unitário
+Testa uma pequena parte da sua aplicação de forma isolada.
+
+#### Teste de integração
+Testa a comunicação entre duas ou mais unidades da aplicação
+
+#### Teste end2end (ponta-a-ponta)
+Simulam um usuário usando a aplicação, engloba todas as funcionalidades.
+Front-end: Abrir a página, digitar nos campos login e senha, clicar no botão...
+Back-end: Chamadas HTTP, websockets
+
+### Vitest
+
+É um framework de testes unitários mantido pela Vite.
+
+Fornece uma API compatível com o Jest, com a diferença que a prioridade do Vitest é ser mais performático e mais fácil de configurar.
+
+`npm i vitest -D`
+
+Criar uma pasta `test` e adicionar um arquivo `<filename>.spec.ts` ou `<filename>.test.ts`
+
+No arquivo.:
+
+```ts
+import { test } from 'vitest'
+
+test('user should be able to do something', () => {
+  let variavel = 100 + 200 + 30 + 4 // operação (qualquer coisa)
+  expect(variavel).toEqual(1234) // validação
+})
+```
+
+Para rodar todos os testes:
+
+`npx vitest`
