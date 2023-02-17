@@ -44,3 +44,47 @@ Recomendável até colocar como script no package.json, exemplo.:
   ...
 }
 ```
+
+### Plugins do fastify
+
+Depois de criado o servidor e ele está ouvindo, podemos separar as rotas em outros arquivos e registrá-los na aplicação fastify como plugins, tornando o código menos complexo, mais 
+limpo, etc.
+
+Plugins do fastify.:
+- Precisam ser funções assíncronas
+- Recebem a instância do fastify como parâmetro (o servidor) do tipo `FastifyInstance`
+
+Em routes/transactions.ts pode ser colocada uma rota:
+
+```ts
+import { knex } from '../database'
+import { FastifyInstance } from 'fastify'
+
+export async function transactionsRoutes(app: FastifyInstance) {
+  const fetchTransactions = await knex('transactions')
+    .where('amount', 1337)
+    .select('title')
+
+  return fetchTransactions
+}
+```
+
+No arquivo server.ts registramos o plugin:
+
+```ts
+import fastify from 'fastify'
+import { env } from './env'
+import { transactionsRoutes } from './routes/transactions'
+
+const app = fastify()
+
+app.register(transactionsRoutes)
+
+app
+  .listen({
+    port: env.PORT,
+  })
+  .then(() => {
+    console.log('HTTP Server running on port 3333')
+  })
+```
