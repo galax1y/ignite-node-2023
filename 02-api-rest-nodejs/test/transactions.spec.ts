@@ -1,6 +1,7 @@
-import { expect, test, beforeAll, afterAll, describe } from 'vitest'
+import { expect, test, beforeAll, afterAll, describe, beforeEach } from 'vitest'
 import { app } from '../src/app'
 import request from 'supertest'
+import { exec, execSync } from 'child_process'
 
 // test('enunciado', () => {
 //  operação
@@ -14,6 +15,12 @@ describe('/transactions route tests', () => {
 
   afterAll(async () => {
     await app.close()
+  })
+
+  // Antes de cada teste, teremos um banco de dados de teste LIMPO, garantindo que o teste seja feito em um ambiente controlado.
+  beforeEach(() => {
+    execSync('npm run knex migrate:rollback --all')
+    execSync('npm run knex migrate:latest')
   })
 
   test('user should be able to create a new transaction', async () => {
