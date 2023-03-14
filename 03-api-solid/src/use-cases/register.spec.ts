@@ -44,18 +44,18 @@ describe('Register Use Case', () => {
     const usersRepository = new InMemoryUsersRepository()
     const registerUseCase = new RegisterUseCase(usersRepository)
 
-    const emailToRepeat = 'fulano@example.com'
+    const email = 'fulano@example.com'
 
     await registerUseCase.execute({
       name: 'Fulano',
-      email: emailToRepeat,
+      email,
       password: '123456',
     })
 
-    expect(async () => {
+    await expect(async () => {
       await registerUseCase.execute({
         name: 'Ciclano',
-        email: emailToRepeat,
+        email,
         password: '654321',
       })
     }).rejects.toBeInstanceOf(UserAlreadyExistsError)
