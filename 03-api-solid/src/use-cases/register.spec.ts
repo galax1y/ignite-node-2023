@@ -1,18 +1,24 @@
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { compare } from 'bcryptjs'
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 import { RegisterUseCase } from './register'
 
 // Um teste unitário não pode depender de qualquer coisa que não seja específica do teste.
 // ex.: Um teste da lógica do negócio não pode depender de interações com o banco de dados
 
-describe('Register Use Case', () => {
-  it('should be able to register', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
+let usersRepository: InMemoryUsersRepository
+let sut: RegisterUseCase
 
-    const { user } = await registerUseCase.execute({
+describe('Register Use Case', () => {
+  // Flush antes de qualquer teste
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(usersRepository)
+  })
+
+  it('should be able to register', async () => {
+    const { user } = await sut.execute({
       name: 'Fulano',
       email: 'fulano@example.com',
       password: '123456',
@@ -22,11 +28,7 @@ describe('Register Use Case', () => {
   })
 
   it('should hash user password upon registration', async () => {
-    // Passado um objeto 'fake' simulando um Repository, possível por conta da inversão de dependências
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'Fulano',
       email: 'fulano@example.com',
       password: '123456',
@@ -41,19 +43,16 @@ describe('Register Use Case', () => {
   })
 
   it('should not be able to register with the same email twice', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(usersRepository)
-
     const email = 'fulano@example.com'
 
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'Fulano',
       email,
       password: '123456',
     })
 
     await expect(async () => {
-      await registerUseCase.execute({
+      await sut.execute({
         name: 'Ciclano',
         email,
         password: '654321',
