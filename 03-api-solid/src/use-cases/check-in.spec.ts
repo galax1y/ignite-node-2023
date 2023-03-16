@@ -2,9 +2,9 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 import { CheckInUseCase } from './check-in'
 import { describe, beforeEach, afterEach, it, expect, vi } from 'vitest'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { Decimal } from '@prisma/client/runtime'
 import { MaxDistanceError } from './errors/max-distance-error'
 import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
+import { Prisma } from '@prisma/client'
 
 // SUT -> System Under Test, uma nomenclatura padrão adotada pela comunidade
 let checkInsRepository: InMemoryCheckInsRepository
@@ -91,8 +91,8 @@ describe('Check In Use Case', () => {
       title: 'Distant gym',
       description: '',
       // About 500m from the point created in beforeEach()
-      latitude: new Decimal(-29.992333),
-      longitude: new Decimal(-51.095371),
+      latitude: new Prisma.Decimal(-29.992333),
+      longitude: new Prisma.Decimal(-51.095371),
       phone: '99877776666',
     })
 
