@@ -3,6 +3,8 @@ import { CheckInUseCase } from './check-in'
 import { describe, beforeEach, afterEach, it, expect, vi } from 'vitest'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { Decimal } from '@prisma/client/runtime'
+import { MaxDistanceError } from './errors/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
 
 // SUT -> System Under Test, uma nomenclatura padrão adotada pela comunidade
 let checkInsRepository: InMemoryCheckInsRepository
@@ -59,7 +61,7 @@ describe('Check In Use Case', () => {
         userLatitude: -29.992484,
         userLongitude: -51.100282,
       })
-    }).rejects.toBeInstanceOf(Error)
+    }).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in twice but in different days', async () => {
@@ -101,6 +103,6 @@ describe('Check In Use Case', () => {
         userLatitude: -29.992484,
         userLongitude: -51.100282,
       })
-    }).rejects.toBeInstanceOf(Error)
+    }).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
