@@ -11,3 +11,20 @@ Não é associado a algum framework ou paradigma de programação, é mais como 
 
 > ### Ubiquitous Language
 > A linguagem/terminologia deve ser adaptada ao contexto do negócio (dia a dia da empresa contratante). O time de desenvolvimento deve falar diretamente com o **Domain Expert** para extrair essa linguagem ubíqua.
+
+A partir da conversa com o Domain Expert, extraem-se informações sobre as dificuldades enfrentadas e como o software pode auxiliar no processo.
+
+Ex.: Contexto de um fórum educacional, onde o Domain Expert é um instrutor que responde às dúvidas dos alunos que vão sendo postadas.
+
+- Dificuldade em saber as dúvidas dos alunos
+- Eu tenho que responder os alunos e me perco em quais dúvidas já foram respondidas
+
+Essas frases já identificam algumas entidades e casos de uso:
+
+**Entidades:**
+Eu -> Instrutor
+Alunos
+Dúvidas
+
+**Casos de uso**
+Eu - Responder - Alunos -> Caso de uso
