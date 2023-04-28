@@ -28,3 +28,23 @@ Dúvidas
 
 **Casos de uso**
 Eu - Responder - Alunos -> Caso de uso
+
+---
+
+As declarações abaixo são equivalentes
+
+```ts
+class Foo {
+    private bar: string;
+    constructor(bar: string) {
+        this.bar = bar;
+    }
+}
+
+class Foo {
+    constructor(private bar: string) {}
+}
+```
+
+---
+
