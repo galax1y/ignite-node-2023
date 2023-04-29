@@ -33,17 +33,18 @@ As rotas de **Meals** dependem de um **User** estar autenticado
 
 Abstração de um usuário (User):
 
-- userId: string
-- meals: Meal[]
+- user_id: string - uuid
 
 Abstração de uma refeição (Meal):
-- name: string
+- meal_id: string - uuid
+- name: string - requerido
 - description: string
-- createdAt: Date
-- isHealthy: boolean
+- createdAt: Date - default timestamp now()
+- is_healthy: boolean
+- user_id: string - foreign key @map c/ users
 
 
-Checklist:
+Checklist (c/ testes):
 
 - [ ] Deve ser possível criar um usuário
 - [ ] Deve ser possível identificar o usuário entre as requisições

@@ -1,7 +1,7 @@
 import { knex as setupKnex, Knex } from 'knex'
 import { env } from './env'
 
-console.log('teste', String(process.env.DATABASE_URL))
+console.log('DATABASE_URL', String(process.env.DATABASE_URL))
 
 export const config: Knex.Config = {
   client: 'sqlite',
