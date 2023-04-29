@@ -1,7 +1,7 @@
-import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import fastify from "fastify";
+import { usersRoutes } from "./routes/users";
 
 export const app = fastify()
 
-app.get('/', (req: FastifyRequest, res: FastifyReply) => {
-  res.send({message: 'Test'})
-})
+// baseURL/users
+app.register(usersRoutes, {prefix: 'users'})
