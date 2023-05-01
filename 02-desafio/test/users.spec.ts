@@ -11,9 +11,11 @@ describe('users route test suite', () => {
     await app.close()
   })
 
-  // it('it should be able to create a new user', async () => {
+   it('it should be able to create a new user', async () => {
+    const response = await request(app.server).post('/users')
 
-  // })
+    expect(response.statusCode).toEqual(201)
+   })
 
   // it('should be able to log in', async () => {
 
