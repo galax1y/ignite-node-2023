@@ -8,7 +8,7 @@ import { randomUUID } from "node:crypto";
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
-    console.log('Rota POST (users) foi acionada')
+    // console.log('Rota POST (users) foi acionada')
 
     const userId = randomUUID()
 
@@ -25,7 +25,8 @@ export async function usersRoutes(app: FastifyInstance) {
   })
 
   app.get('/metrics', {preHandler: [checkCookiesForUserId]}, async (request, reply) => {
-    console.log('Rota GET (users/metrics) foi acionada')
+    // console.log('Rota GET (users/metrics) foi acionada')
+
     const userMeals = await knex('meals')
     .select('*')
     .where({
@@ -42,7 +43,8 @@ export async function usersRoutes(app: FastifyInstance) {
   })
 
   app.post('/login', async (request, reply) => {
-    console.log('Rota POST (users/login) foi acionada')
+    // console.log('Rota POST (users/login) foi acionada')
+
     const loginRequestBodySchema = z.object({
       user_id: z.string().uuid()
     })

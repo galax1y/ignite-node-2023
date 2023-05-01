@@ -1,8 +1,8 @@
 import { FastifyInstance } from "fastify";
-import { checkCookiesForUserId } from "../middlewares/check-cookies-for-user-id";
 import { knex } from "../database";
-import { z } from "zod";
+import { checkCookiesForUserId } from "../middlewares/check-cookies-for-user-id";
 import NewDateAsIso from "../utils/get-new-date-as-iso";
+import { z } from "zod";
 
 const updateMealRequestParamsSchema = z.object({
   mealId: z.string().uuid()
@@ -13,7 +13,7 @@ export async function mealsRoutes(app: FastifyInstance) {
   app.addHook('preHandler', checkCookiesForUserId)
 
   app.get('/', async (request, reply) => {
-    console.log('Rota GET (meals) foi acionada')
+    // console.log('Rota GET (meals) foi acionada')
 
     const meals = await knex('meals')
     .select('*')
@@ -25,7 +25,7 @@ export async function mealsRoutes(app: FastifyInstance) {
   })
 
   app.delete('/:mealId', async (request, reply) => {
-    console.log('Rota DELETE (meals/:mealId) foi acionada')
+    // console.log('Rota DELETE (meals/:mealId) foi acionada')
 
     const deleteMealRequestParamsSchema = z.object({
       mealId: z.string().uuid()
@@ -53,7 +53,7 @@ export async function mealsRoutes(app: FastifyInstance) {
 
   // Deve ser possível editar uma refeição
   app.patch('/:mealId', async (request, reply) => {
-    console.log('Rota UPDATE (meals/:mealId) foi acionada')
+    // console.log('Rota UPDATE (meals/:mealId) foi acionada')
 
     const updateMealRequestBodySchema = z.object({
       name: z.string().min(3).optional(),
@@ -102,7 +102,7 @@ export async function mealsRoutes(app: FastifyInstance) {
 
   // Deve ser possível registrar uma refeição feita
   app.post('/', async (request, reply) => {
-    console.log('Rota POST (meals) foi acionada')
+    // console.log('Rota POST (meals) foi acionada')
 
     const registerMealRequestBodySchema = z.object({
       meal_id: z.string().uuid(),
@@ -134,7 +134,7 @@ export async function mealsRoutes(app: FastifyInstance) {
   })
 
   app.get('/:mealId', async (request, reply) => {
-    console.log('Rota GET (meals/:mealId) foi acionada')
+    // console.log('Rota GET (meals/:mealId) foi acionada')
     try {
       const { mealId } = updateMealRequestParamsSchema.parse(request.params)
 

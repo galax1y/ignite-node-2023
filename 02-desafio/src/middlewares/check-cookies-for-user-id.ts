@@ -1,9 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-export async function checkCookiesForUserId(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+export async function checkCookiesForUserId(request: FastifyRequest, reply: FastifyReply) {
   const userId = request.cookies.userId
 
   if (!userId) {
