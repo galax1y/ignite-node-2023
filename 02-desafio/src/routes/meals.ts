@@ -45,7 +45,7 @@ export async function mealsRoutes(app: FastifyInstance) {
         reply.status(404).send({message: 'Not found'})
       }
 
-      reply.status(200).send(deleted)
+      reply.status(200).send({didDelete: deleted})
     } catch (error) {
       reply.status(400).send({message: error})
     }

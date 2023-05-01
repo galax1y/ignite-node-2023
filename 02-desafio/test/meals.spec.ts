@@ -14,9 +14,9 @@ describe('meals route test suite', () => {
   })
 
   it('should be able to register a new meal', async () => {
-    const createUserResponse = await request(app.server).post('/users')
+    const mockUser = await request(app.server).post('/users')
 
-    const cookies = createUserResponse.get('Set-Cookie')
+    const cookies = mockUser.get('Set-Cookie')
 
     const uuid = randomUUID()
 
@@ -34,9 +34,9 @@ describe('meals route test suite', () => {
   })
 
   it('should be able to list all meals from the current user', async () => {
-    const createUserResponse = await request(app.server).post('/users')
+    const mockUser = await request(app.server).post('/users')
 
-    const cookies = createUserResponse.get('Set-Cookie')
+    const cookies = mockUser.get('Set-Cookie')
 
     const uuid = randomUUID()
 
@@ -68,15 +68,62 @@ describe('meals route test suite', () => {
     ]))
   })
 
-  // it('should be able to edit an existing meal', async () => {
-    
-  // })
+  it('should be able to edit an existing meal', async () => {
+    const mockUser = await request(app.server).post('/users')
 
-  // it('should be able to update an existing meal', async () => {
-    
-  // })
+    const cookies = mockUser.get('Set-Cookie')
 
-  // it('should be able to delete an existing meal', async () => {
-    
-  // })
+    const uuid = randomUUID()
+
+    // Create mock meal
+    await request(app.server)
+    .post('/meals')
+    .set('Cookie', cookies)
+    .send({
+      meal_id: uuid,
+      name: "Unit test meal",
+      description: "Unit test description",
+      is_healthy: true,
+    })
+
+    const response = await request(app.server)
+    .patch(`/meals/${uuid}`)
+    .set('Cookie', cookies)
+    .send({
+      name: "Editing unit test meal",
+      description: "Editing unit test description",
+      is_healthy: false,
+    })
+
+    expect(response.statusCode).toEqual(200)
+  })
+
+  it('should be able to delete an existing meal', async () => {
+    const mockUser = await request(app.server).post('/users')
+
+    const cookies = mockUser.get('Set-Cookie')
+
+    const uuid = randomUUID()
+
+    // Create mock meal
+    await request(app.server)
+    .post('/meals')
+    .set('Cookie', cookies)
+    .send({
+      meal_id: uuid,
+      name: "Unit test meal",
+      description: "Unit test description",
+      is_healthy: true,
+    })
+
+    const response = await request(app.server)
+    .delete(`/meals/${uuid}`)
+    .set('Cookie', cookies)
+
+    expect(response.statusCode).toEqual(200)
+
+    expect(response.body).toEqual(expect.objectContaining({
+      didDelete: expect.any(Number)
+    }))
+  })
 })
