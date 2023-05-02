@@ -30,3 +30,25 @@ Use Cases / Services - Cada um contém a parte lógica de uma rota ex.: validaç
 
 Também usou Docker e Docker-compose pra disponibilizar um banco Postgres, já eu vou me reter a usar sqlite, e no final do desafio tento implementar, isso vai evitar vários problemas que não são o foco do módulo.
 
+Estrutura dos dados:
+
+* Um pet deve estar ligado a uma ORG
+
+* Uma ORG precisa ter um endereço e um número de WhatsApp
+
+* Para listar os pets, obrigatoriamente precisamos informar a cidade
+
+* O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
+
+* Deve ser possível realizar login como uma ORG
+
+Uma ORG tem:
+  - ID único
+  - Um ou mais pets associados
+  - Rota de cadastro (Email, senha, CEP, endereço, nº Whatsapp, nome do responsável)
+
+Um PET tem:
+  - ORG associada - @foreign-key c/ o id da ORG
+  - Características (idade, porte, nível de energia, nível de independência)
+  - Cidade
+  - Flag isAdopted
