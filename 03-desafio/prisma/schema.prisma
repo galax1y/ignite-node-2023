@@ -28,7 +28,7 @@ model Pet {
   size          Int
   energy        Int
   independence  Int
-  isAdopted     Boolean
+  is_adopted    Boolean? @default(false)
 
   Organization    Organization @relation(fields: [organizationId], references: [id])
   organizationId  String
