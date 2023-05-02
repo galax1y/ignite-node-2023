@@ -31,20 +31,22 @@ Duas entidades principais: **Users** e **Meals**
 
 As rotas de **Meals** dependem de um **User** estar autenticado
 
-Abstração de um usuário (User):
+Então quando criar um User, vou colocar o id dele nos cookies pra usar como autenticação, e um middleware pra checar.
 
+Abstração de um usuário (User):
 - user_id: string - uuid
 
 Abstração de uma refeição (Meal):
 - meal_id: string - uuid
 - name: string - requerido
 - description: string
-- createdAt: Date - default timestamp now()
+- created_at: Date - default timestamp now()
 - is_healthy: boolean
 - user_id: string - foreign key @map c/ users
 
+TDD foi mostrado no proximo módulo, então não coloquei em prática nesse projeto de propósito
 
-Checklist (s/ testes):
+Checklist testes:
 
 - [x] Deve ser possível criar um usuário
 - [x] Deve ser possível identificar o usuário entre as requisições
@@ -59,20 +61,5 @@ Checklist (s/ testes):
     - [x] Quantidade total de refeições fora da dieta
 - [x] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
 
-TDD foi mostrado no proximo módulo, então não coloquei em prática nesse projeto de propósito
-
-Checklist (c/ testes):
-
-- [ ] Deve ser possível criar um usuário
-- [ ] Deve ser possível identificar o usuário entre as requisições
-- [ ] Deve ser possível registrar uma refeição feita
-- [ ] Deve ser possível editar uma refeição
-- [ ] Deve ser possível apagar uma refeição
-- [ ] Deve ser possível listar todas as refeições de um usuário
-- [ ] Deve ser possível visualizar uma única refeição
-- [ ] Deve ser possível recuperar as métricas de um usuário
-    - [ ] Quantidade total de refeições registradas
-    - [ ] Quantidade total de refeições dentro da dieta
-    - [ ] Quantidade total de refeições fora da dieta
-
-- [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
+Como os testes não foram especificados, só fiz os testes afirmativos que apareceram no enunciado
+ 
