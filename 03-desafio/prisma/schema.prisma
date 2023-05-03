@@ -10,14 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Organization {
-  id            String @id @default(uuid())
-  email         String @unique
-  password_hash String
-  cep           String
-  address       String
-  whatsapp      String
-  accountable   String
+model Org {
+  id                  String @id @default(uuid())
+  email               String @unique
+  password_hash       String
+  zipcode             String
+  address             String
+  contact             String
+  name_accountable    String
 
   pets Pet[]
 }
@@ -28,9 +28,9 @@ model Pet {
   size          Int
   energy        Int
   independence  Int
-  is_adopted    Boolean? @default(false)
+  adopted_at    DateTime?
 
-  Organization    Organization @relation(fields: [organizationId], references: [id])
-  organizationId  String
+  Org    Org @relation(fields: [orgId], references: [id])
+  orgId  String
 }
 

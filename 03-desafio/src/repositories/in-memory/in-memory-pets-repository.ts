@@ -1,5 +1,5 @@
-import { Pet, Prisma } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
+import { Pet, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryPetsRepository implements PetsRepository {
@@ -8,12 +8,12 @@ export class InMemoryPetsRepository implements PetsRepository {
   async register(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     const pet: Pet = {
       id: randomUUID(),
-      is_adopted: false,
-      age: data.age,
-      energy: data.energy,
-      independence: data.independence,
+      orgId: data.orgId,
       size: data.size,
-      organizationId: data.organizationId,
+      age: data.age,
+      independence: data.independence,
+      energy: data.energy,
+      adopted_at: null,
     }
 
     this.pets.push(pet)

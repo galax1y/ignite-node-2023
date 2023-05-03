@@ -1,5 +1,5 @@
-import { Organization, Prisma } from '@prisma/client'
+import { Org, Prisma } from '@prisma/client'
 
 export interface OrganizationsRepository {
-  register(data: Prisma.OrganizationUncheckedCreateInput): Promise<Organization>
+  register(data: Prisma.OrgUncheckedCreateInput): Promise<Org>
 }
