@@ -1,37 +1,35 @@
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
-import { Organization } from '@prisma/client'
+import { Org } from '@prisma/client'
+import { hash } from 'bcrypt'
 
 interface RegisterOrganizationUseCaseRequest {
   email: string
   password: string
-  cep: string
+  zipcode: string
   address: string
-  whatsapp: string
-  accountable: string
+  contact: string
+  name_accountable: string
 }
 
 interface RegisterOrganizationUseCaseResponse {
-  organization: Organization
+  organization: Org
 }
 
 export class RegisterOrganizationUseCase {
   constructor(private organizationsRepository: OrganizationsRepository) {}
 
-  async execute({
-    accountable,
-    address,
-    cep,
-    email,
-    password,
-    whatsapp,
-  }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
+  async execute(
+    props: RegisterOrganizationUseCaseRequest,
+  ): Promise<RegisterOrganizationUseCaseResponse> {
+    const hashedPassword = await hash(props.password, 6)
+
     const organization = await this.organizationsRepository.register({
-      accountable,
-      address,
-      cep,
-      email,
-      password_hash: password,
-      whatsapp,
+      email: props.email,
+      password_hash: hashedPassword,
+      address: props.address,
+      contact: props.contact,
+      name_accountable: props.name_accountable,
+      zipcode: props.zipcode,
     })
 
     return { organization }

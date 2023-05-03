@@ -14,11 +14,11 @@ describe('Register Pet Use Case', () => {
 
   it('should be able to register a new pet', async () => {
     const { pet } = await sut.execute({
-      age: 10,
-      energy: 10,
-      independence: 10,
-      size: 10,
-      organizationId: randomUUID(),
+      orgId: randomUUID(),
+      age: 5,
+      energy: 5,
+      independence: 1,
+      size: 4,
     })
 
     expect(pet.id).toEqual(expect.any(String))

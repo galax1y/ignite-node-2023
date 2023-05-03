@@ -2,12 +2,11 @@ import { PetsRepository } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
 
 interface RegisterPetUseCaseRequest {
+  orgId: string
   age: number
+  size: number
   energy: number
   independence: number
-  size: number
-
-  organizationId: string
 }
 
 interface RegisterPetUseCaseResponse {
@@ -17,19 +16,15 @@ interface RegisterPetUseCaseResponse {
 export class RegisterPetUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
-  async execute({
-    age,
-    energy,
-    independence,
-    size,
-    organizationId,
-  }: RegisterPetUseCaseRequest): Promise<RegisterPetUseCaseResponse> {
+  async execute(
+    props: RegisterPetUseCaseRequest,
+  ): Promise<RegisterPetUseCaseResponse> {
     const pet = await this.petsRepository.register({
-      age,
-      energy,
-      independence,
-      organizationId,
-      size,
+      orgId: props.orgId,
+      age: props.age,
+      size: props.size,
+      energy: props.energy,
+      independence: props.independence,
     })
 
     return { pet }

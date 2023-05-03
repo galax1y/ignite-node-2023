@@ -10,12 +10,7 @@ export class InMemoryOrganizationsRepository
   async register(data: Prisma.OrgUncheckedCreateInput): Promise<Org> {
     const organization: Org = {
       id: randomUUID(),
-      email: 'test@example.com',
-      password_hash: 'password',
-      address: 'Street 24',
-      zipcode: '99888777',
-      contact: '977771111',
-      name_accountable: 'John Doe',
+      ...data,
     }
 
     this.organizations.push(organization)

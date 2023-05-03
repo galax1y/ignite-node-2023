@@ -7,12 +7,8 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async register(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     const pet: Pet = {
+      ...data,
       id: randomUUID(),
-      orgId: data.orgId,
-      size: data.size,
-      age: data.age,
-      independence: data.independence,
-      energy: data.energy,
       adopted_at: null,
     }
 
