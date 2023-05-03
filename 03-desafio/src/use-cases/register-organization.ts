@@ -9,6 +9,7 @@ interface RegisterOrganizationUseCaseRequest {
   address: string
   contact: string
   name_accountable: string
+  city: string
 }
 
 interface RegisterOrganizationUseCaseResponse {
@@ -30,6 +31,7 @@ export class RegisterOrganizationUseCase {
       contact: props.contact,
       name_accountable: props.name_accountable,
       zipcode: props.zipcode,
+      city: props.city,
     })
 
     return { organization }

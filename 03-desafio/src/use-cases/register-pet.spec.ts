@@ -22,5 +22,6 @@ describe('Register Pet Use Case', () => {
     })
 
     expect(pet.id).toEqual(expect.any(String))
+    expect(pet.adopted_at).toEqual(null)
   })
 })

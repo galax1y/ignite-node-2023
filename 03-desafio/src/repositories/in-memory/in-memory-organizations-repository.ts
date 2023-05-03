@@ -17,4 +17,12 @@ export class InMemoryOrganizationsRepository
 
     return organization
   }
+
+  async findManyByCity(city: string): Promise<Org[]> {
+    const organizationsInGivenCity = this.organizations.filter(
+      (organization) => organization.city === city,
+    )
+
+    return organizationsInGivenCity
+  }
 }

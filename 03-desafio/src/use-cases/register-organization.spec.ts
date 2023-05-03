@@ -20,6 +20,7 @@ describe('Register Organization Use Case', () => {
       contact: '988887777',
       address: 'Rua Teste, 23',
       zipcode: '99888777',
+      city: 'Test City',
     })
 
     const doesPasswordMatch = await compare('test', organization.password_hash)

@@ -10,9 +10,9 @@ export async function search(request: FastifyRequest, reply: FastifyReply) {
     const { city } = searchPetsParamsSchema.parse(request.query)
 
     console.log(city)
-  } catch (err) {
-    reply.send({ message: `This route need a 'city' query parameter` })
-  }
 
-  reply.status(200).send({ message: 'Not implemented yet' })
+    reply.status(200).send({ message: 'Not implemented yet' })
+  } catch (err) {
+    reply.send({ message: `This route needs a 'city' query parameter` })
+  }
 }

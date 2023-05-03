@@ -10,11 +10,19 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     address: z.string(),
     contact: z.string().length(9),
     name_accountable: z.string(),
+    city: z.string(),
   })
 
   try {
-    const { email, password, zipcode, address, contact, name_accountable } =
-      registerOrganizationBodySchema.parse(request.body)
+    const {
+      email,
+      password,
+      zipcode,
+      address,
+      contact,
+      name_accountable,
+      city,
+    } = registerOrganizationBodySchema.parse(request.body)
 
     const registerOrganizationUseCase = makeRegisterOrganizationUseCase()
 
@@ -25,6 +33,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       address,
       contact,
       name_accountable,
+      city,
     })
 
     reply.status(201).send(organization)
