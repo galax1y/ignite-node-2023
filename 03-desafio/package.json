@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "eslint": "^8.39.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4",
+    "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.30.1"
   },
   "dependencies": {
