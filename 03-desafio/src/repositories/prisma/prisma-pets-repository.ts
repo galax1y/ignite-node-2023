@@ -1,5 +1,5 @@
 import { PetsRepository } from '../pets-repository'
-import { Prisma } from '@prisma/client'
+import { Pet, Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaPetsRepository implements PetsRepository {
@@ -7,5 +7,15 @@ export class PrismaPetsRepository implements PetsRepository {
     const pet = await prisma.pet.create({ data })
 
     return pet
+  }
+
+  async findManyByOrg(orgId: string): Promise<Pet[]> {
+    const pets = await prisma.pet.findMany({
+      where: {
+        orgId,
+      },
+    })
+
+    return pets
   }
 }

@@ -1,3 +1,4 @@
+import { makeSearchPetsUseCase } from '@/use-cases/factories/make-search-pets-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -9,9 +10,11 @@ export async function search(request: FastifyRequest, reply: FastifyReply) {
   try {
     const { city } = searchPetsParamsSchema.parse(request.query)
 
-    console.log(city)
+    const searchPetsUseCase = makeSearchPetsUseCase()
 
-    reply.status(200).send({ message: 'Not implemented yet' })
+    const pets = await searchPetsUseCase.execute({ city })
+
+    reply.status(200).send(pets)
   } catch (err) {
     reply.send({ message: `This route needs a 'city' query parameter` })
   }
