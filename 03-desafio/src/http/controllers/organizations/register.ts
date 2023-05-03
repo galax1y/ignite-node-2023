@@ -5,26 +5,30 @@ import { z } from 'zod'
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerOrganizationBodySchema = z.object({
     email: z.string().email(),
-    password: z.string().min(8),
-    cep: z.string().length(8),
+    password: z.string().min(3),
+    zipcode: z.string().length(8),
     address: z.string(),
-    whatsapp: z.string().min(8).max(9),
-    accountable: z.string(),
+    contact: z.string().length(9),
+    name_accountable: z.string(),
   })
 
-  const { accountable, address, cep, email, password, whatsapp } =
-    registerOrganizationBodySchema.parse(request.body)
+  try {
+    const { email, password, zipcode, address, contact, name_accountable } =
+      registerOrganizationBodySchema.parse(request.body)
 
-  const registerOrganizationUseCase = makeRegisterOrganizationUseCase()
+    const registerOrganizationUseCase = makeRegisterOrganizationUseCase()
 
-  const organization = await registerOrganizationUseCase.execute({
-    accountable,
-    address,
-    cep,
-    email,
-    password,
-    whatsapp,
-  })
+    const organization = await registerOrganizationUseCase.execute({
+      email,
+      password,
+      zipcode,
+      address,
+      contact,
+      name_accountable,
+    })
 
-  reply.status(201).send(organization)
+    reply.status(201).send(organization)
+  } catch (err) {
+    reply.status(418).send({ message: err })
+  }
 }

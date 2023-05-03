@@ -4,25 +4,29 @@ import { z } from 'zod'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerPetBodySchema = z.object({
+    orgId: z.string().uuid(),
+    size: z.number().positive().min(1).max(3),
     age: z.number().positive(),
-    energy: z.number().positive(),
-    independence: z.number().positive(),
-    size: z.number().positive(),
-    organizationId: z.string().uuid(),
+    energy: z.number().positive().min(1).max(5),
+    independence: z.number().positive().min(1).max(3),
   })
 
-  const { age, energy, independence, organizationId, size } =
-    registerPetBodySchema.parse(request.body)
+  try {
+    const { age, energy, size, orgId, independence } =
+      registerPetBodySchema.parse(request.body)
 
-  const registerOrganizationUseCase = makeRegisterPetUseCase()
+    const registerOrganizationUseCase = makeRegisterPetUseCase()
 
-  const organization = await registerOrganizationUseCase.execute({
-    age,
-    energy,
-    independence,
-    size,
-    organizationId,
-  })
+    const organization = await registerOrganizationUseCase.execute({
+      orgId,
+      age,
+      size,
+      energy,
+      independence,
+    })
 
-  reply.status(201).send(organization)
+    reply.status(201).send(organization)
+  } catch (err) {
+    reply.status(418).send({ message: err })
+  }
 }
