@@ -4,16 +4,18 @@ import { z } from 'zod'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerPetBodySchema = z.object({
-    orgId: z.string().uuid(),
     size: z.number().positive().min(1).max(3),
     age: z.number().positive(),
     energy: z.number().positive().min(1).max(5),
     independence: z.number().positive().min(1).max(3),
   })
-
   try {
-    const { age, energy, size, orgId, independence } =
-      registerPetBodySchema.parse(request.body)
+    // orgId is contained in JWT Token sub
+    const orgId = request.user.sub
+
+    const { age, energy, size, independence } = registerPetBodySchema.parse(
+      request.body,
+    )
 
     const registerOrganizationUseCase = makeRegisterPetUseCase()
 

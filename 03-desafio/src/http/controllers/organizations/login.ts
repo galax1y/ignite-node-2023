@@ -18,7 +18,16 @@ export async function login(request: FastifyRequest, reply: FastifyReply) {
       password,
     })
 
-    reply.status(200).send(organization)
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+        },
+      },
+    )
+
+    reply.status(200).send({ token })
   } catch (err) {
     reply.status(400).send({ message: err })
   }
