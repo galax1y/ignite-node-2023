@@ -25,4 +25,16 @@ export class InMemoryOrganizationsRepository
 
     return organizationsInGivenCity
   }
+
+  async findByEmail(email: string): Promise<Org | null> {
+    const organization = this.organizations.find(
+      (organization) => organization.email === email,
+    )
+
+    if (!organization) {
+      return null
+    }
+
+    return organization
+  }
 }
