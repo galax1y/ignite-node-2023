@@ -8,8 +8,8 @@ export class InMemoryPetsRepository implements PetsRepository {
   async register(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     const pet: Pet = {
       ...data,
-      id: randomUUID(),
-      adopted_at: null,
+      id: randomUUID(), // No prisma é automático
+      adopted_at: null, // No prisma é automático
     }
 
     this.pets.push(pet)
@@ -21,5 +21,11 @@ export class InMemoryPetsRepository implements PetsRepository {
     const pets: Pet[] = this.pets.filter((pet) => pet.orgId === orgId)
 
     return pets
+  }
+
+  async findById(petId: string): Promise<Pet | null> {
+    const pet = this.pets.find((pet) => pet.id === petId)
+
+    return pet ?? null
   }
 }
