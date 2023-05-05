@@ -1,9 +1,10 @@
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
-import { PetsRepository } from '@/repositories/pets-repository'
+import { FilterProps, PetsRepository } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
 
 interface SearchPetsUseCaseRequest {
   city: string
+  filter: FilterProps
 }
 
 interface SearchPetsUseCaseResponse {
@@ -18,14 +19,17 @@ export class SearchPetsUseCase {
 
   async execute({
     city,
+    filter,
   }: SearchPetsUseCaseRequest): Promise<SearchPetsUseCaseResponse> {
     const organizationsInCity =
       await this.organizationsRepository.findManyByCity(city)
 
+    console.log('filter:', filter)
+
     const pets = await Promise.all(
       organizationsInCity.map(
         async (organization) =>
-          await this.petsRepository.findManyByOrg(organization.id),
+          await this.petsRepository.find(organization.id, filter),
       ),
     ).then((data) => data.flat())
 

@@ -1,4 +1,4 @@
-import { PetsRepository } from '../pets-repository'
+import { FilterProps, PetsRepository } from '../pets-repository'
 import { Pet, Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 
@@ -27,5 +27,16 @@ export class PrismaPetsRepository implements PetsRepository {
     })
 
     return pet
+  }
+
+  async find(orgId: string, filter: FilterProps): Promise<Pet[]> {
+    const pets = await prisma.pet.findMany({
+      where: {
+        orgId,
+        ...filter,
+      },
+    })
+
+    return pets
   }
 }
