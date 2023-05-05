@@ -2,29 +2,29 @@
 
 import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
-import { FetchPetDetailsUseCase } from './fetch-pet-details'
+import { ContactForAdoptionUseCase } from './contact-for-adoption'
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository'
 
-describe('Fetch Pet Detrails Use Case', () => {
+describe('Contact for Adoption Use Case', () => {
   let petsRepository: InMemoryPetsRepository
   let organizationsRepository: InMemoryOrganizationsRepository
-  let sut: FetchPetDetailsUseCase
+  let sut: ContactForAdoptionUseCase
 
   beforeEach(() => {
     petsRepository = new InMemoryPetsRepository()
     organizationsRepository = new InMemoryOrganizationsRepository()
-    sut = new FetchPetDetailsUseCase(petsRepository)
+    sut = new ContactForAdoptionUseCase(petsRepository, organizationsRepository)
   })
 
-  it('should be able to fetch pet details', async () => {
+  it('should be able to get information to start the adoption process', async () => {
     const mockOrganization = await organizationsRepository.register({
-      address: 'Test address',
-      city: 'Test city',
-      contact: '988887777',
       email: 'test@example.com',
-      name_accountable: 'John Doe',
-      password_hash: 'testpassword',
+      password_hash: 'test',
+      name_accountable: 'Test accountable',
+      contact: '988887777',
+      address: 'Rua Teste, 23',
       zipcode: '99888777',
+      city: 'Test City',
     })
 
     const mockPet = await petsRepository.register({
@@ -35,8 +35,10 @@ describe('Fetch Pet Detrails Use Case', () => {
       size: 1,
     })
 
-    const { pet } = await sut.execute({ petId: mockPet.id })
+    const response = await sut.execute({
+      petId: mockPet.id,
+    })
 
-    expect(pet?.id).toEqual(mockPet.id)
+    expect(response.pet.id).toEqual(mockPet.id)
   })
 })
