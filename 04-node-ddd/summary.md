@@ -48,3 +48,15 @@ class Foo {
 
 ---
 
+## Clean Arquitecture
+
+![Clear Arquitecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
+**Arquitetura limpa** é, principalmente, o conceito de **desacoplamento** entre as camadas da aplicação, separando as responsabilidades.
+
+Uma camada pode depender e usar de qualquer informação contida nela, mas não pode usar informações externas. Ex.: Use Cases pode depender de dados vindos de Entities, mas não pode depender da camada de Controllers (segue-se a seta na imagem)
+
+Clean Arquitecture e DDD podem ser usados em conjunto.
+
+Clean Arquitecture tem muito a ver com o código em si, a estrutura de pastas e interações entre os módulos, enquanto DDD está mais para uma metodologia de identificação da estrutura dos dados necessária e o planejamento da aplicação em alto nível.
+
