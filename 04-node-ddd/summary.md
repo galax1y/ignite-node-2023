@@ -60,3 +60,4 @@ Clean Arquitecture e DDD podem ser usados em conjunto.
 
 Clean Arquitecture tem muito a ver com o código em si, a estrutura de pastas e interações entre os módulos, enquanto DDD está mais para uma metodologia de identificação da estrutura dos dados necessária e o planejamento da aplicação em alto nível.
 
+* Percebe-se que ao usar Clean Architecture no desenvolvimento da aplicação, o fluxo de desenvolvimento é de 'dentro pra fora', podendo criar os casos de usos e testes unitários antes mesmo de lidar com os Controllers HTTP, banco de dados e outras camadas da aplicação.
