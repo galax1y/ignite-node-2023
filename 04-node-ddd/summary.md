@@ -69,3 +69,7 @@ Um **agregado** é um pattern no DDD representando um conjunto de objetos que po
 Por exemplo: Em um sistema de restaurante, só faz sentido itens relacionados a um pedido existirem se o próprio pedido existir.
 Na prática são objetos separados, mas faz sentido tratar esse **agregado** como um inteiro.
 
+Uma **lista observada/watched list** é um pattern no DDD que visa controlar uma lista de anexos.
+Contém várias informações por exemplo.: anexos novos, anexos removidos, anexos editados.
+Facilita as operações no banco de dados. 
+
