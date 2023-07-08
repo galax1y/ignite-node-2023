@@ -14,5 +14,7 @@ export abstract class AggregateRoot<Props> extends Entity<Props> {
     DomainEvents.markAggregateForDispatch(this)
   }
 
-  public clearEvents() {}
+  public clearEvents() {
+    this._domainEvents = []
+  }
 }
