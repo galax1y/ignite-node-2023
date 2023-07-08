@@ -1,7 +1,7 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
-
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 import { CreateQuestionUseCase } from './create-question'
 

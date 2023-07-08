@@ -11,7 +11,7 @@ export function makeQuestionAttachment(
 ) {
   const questionAttachment = QuestionAttachment.create(
     {
-      questionId: new UniqueEntityID('1'),
+      questionId: new UniqueEntityID(),
       attachmentId: new UniqueEntityID(),
       ...override,
     },
